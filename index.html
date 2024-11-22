@@ -75,6 +75,11 @@
          * Optional: Custom fit calculation function that determines how well each size fits
          * Overrides the default WEARFITS fit calculation
          */
+         function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+    
          async function customFitFunc() {
     // Get current garment properties and selected size
     const properties = wearfits.garmentProp[wearfits.current_garment_name];
@@ -105,17 +110,19 @@
     });
 
     // Update height and weight inputs
+    
+    const userHeight = parseInt(getQueryParam("height")) || 170; // Default height
+    const userWeight = parseInt(getQueryParam("weight")) || 50;  // Default weight
+
     const heightInput = document.getElementById("wearfits_avatar_fake_height");
     const weightInput = document.getElementById("wearfits_avatar_fake_weight");
 
     if (heightInput && weightInput) {
-        // Assuming you want to set height to a specific value (e.g., from the measurements)
-        heightInput.value = measurements.height || 150; // Default to 165 if no height found in measurements
-        heightInput.dispatchEvent(new Event('input')); // Trigger input event to update slider
+        heightInput.value = userHeight;
+        heightInput.dispatchEvent(new Event('input')); // Trigger slider update
 
-        // Similarly for weight
-        weightInput.value = measurements.weight || 120; // Default to 55 if no weight found in measurements
-        weightInput.dispatchEvent(new Event('input')); // Trigger input event to update slider
+        weightInput.value = userWeight;
+        weightInput.dispatchEvent(new Event('input')); // Trigger slider update
     }
 
     // Update UI with fit recommendations
