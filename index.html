@@ -36,7 +36,7 @@
             // "TROUSERS", "DRESS", "BERMUDA", "LEGGINGS", "SKIRT", 
             // "TOPS AND OTHERS", "BLAZER", "WAISTCOAT", "SHIRT", "T-SHIRT"
             product_type: "DRESS",
-            gender: "w", // Possible values for gender: "m" (men) or "w" (women)
+            gender: getQueryParam("gender") || 'w', // Possible values for gender: "m" (men) or "w" (women)
             sizes: [{
                 name: "XS",
                 chest: 90,
